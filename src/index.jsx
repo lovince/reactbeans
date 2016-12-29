@@ -1,6 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import Entry from './common/Entry';
+
 class App extends React.Component {
   render () {
     return (

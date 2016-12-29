@@ -8,53 +8,47 @@ class Entry {
     this.date = date ? new Date(date) : new Date();
     this.account = account ? account.trim() : 'cash';
     this.amount = amount ? amount : 0;
-    this.currency = currency ? currency.trim() : 'NA';
+    this.currency = currency ? currency.trim() : 'usd';
     this.category = category ? category.trim() : "";
     this.location = location ? location.trim() : "";
-    this.tags = tags ? tags.trim().split(' ') : [];
-  }
-}
+    this.tags = tags ? tags.replace(/#|\.|\$|\/|\\|\[|\]/gi,'_').trim() : "";
 
-var newEntry = function(date, account, amount, currency, category, location, tags) {
-  var entryData = {
-    account: account,
-    amount: amount,
-    currency: currency,
-    category: category,
-    location: location,
-    date: date
+    this.save();
   }
 
-  // build tagsData
-  var tagsData = {};
-  tags.split(' ').map(tag => {
-    var t = tag.replace('#','');
-    t = t.replace('$','_');
-    t = t.replace('.','_');
-    t = t.replace('/','_');
-    t = t.replace('[','_');
-    t = t.replace(']','_');
-    if (t.length == 0) {
-      // console.log('empty string');
-    } else {
-      tagsData[t] = true;
+  save() {
+    // build entryData
+    var entryData = {
+      account: this.account,
+      amount: this.amount,
+      currency: this.currency,
+      category: this.category,
+      location: this.location,
+      date: this.date
     }
-  });
+    // build tagsData
+    var tagsData = {};
+    this.tags.split(' ').map(tag => {
+      if (tag.length == 0) {
+        // console.log('empty string');
+      } else {
+        tagsData[tag] = true;
+      }
+    });
 
-  // Get a key for a new Entry
-  var newEntryKey = database.ref(entriesRef).push().key;
+    // Get a key for a new Entry
+    var newEntryKey = database.ref(entriesRef).push().key;
 
-  // Write the new Entry data simultaneously in the entries list and the entryTags list
-  var updates = {};
-  updates[entriesRef + '/' + newEntryKey] = entryData;
+    // Write the new Entry data simultaneously in the entries list and the entryTags list
+    var updates = {};
+    updates[entriesRef + '/' + newEntryKey] = entryData;
 
-  if (tagsData) {
-    updates[tagsRef + '/' + newEntryKey] = tagsData;
+    if (tagsData) {
+      updates[tagsRef + '/' + newEntryKey] = tagsData;
+    }
+
+    return firebase.database().ref().update(updates);
   }
-
-  return firebase.database().ref().update(updates);
 }
 
-module.exports = {
-  newEntry
-}
+module.exports = Entry;
