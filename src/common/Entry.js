@@ -3,6 +3,18 @@ import database from './firedb';
 const entriesRef = '/data/entries';
 const tagsRef = '/data/entryTags';
 
+class Entry {
+  constructor(date, account, amount, currency, category, location, tags) {
+    this.date = date ? new Date(date) : new Date();
+    this.account = account ? account.trim() : 'cash';
+    this.amount = amount ? amount : 0;
+    this.currency = currency ? currency.trim() : 'NA';
+    this.category = category ? category.trim() : "";
+    this.location = location ? location.trim() : "";
+    this.tags = tags ? tags.trim().split(' ') : [];
+  }
+}
+
 var newEntry = function(date, account, amount, currency, category, location, tags) {
   var entryData = {
     account: account,
