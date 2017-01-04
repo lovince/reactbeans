@@ -5,6 +5,7 @@
   "repository": "https://github.com/lovince/reactbeans",
   "main": "index.js",
   "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,8 +15,12 @@
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-loader": "^0.4.4",
-    "html-webpack-plugin": "^2.24.1"
+    "html-webpack-plugin": "^2.24.1",
+    "style-loader": "^0.13.1",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "babel-loader": "^6.2.10",
