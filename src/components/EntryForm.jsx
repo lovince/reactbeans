@@ -5,7 +5,7 @@ import Entry from '../common/Entry.js';
 
 const defaultInputs = {
   account:'cash',
-  amount:0,
+  amount:'',
   currency:'CAD',
   category:'dining',
   location:'',
