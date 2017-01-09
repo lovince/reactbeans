@@ -1,5 +1,5 @@
 import React from 'react';
-import firedb from '../common/firedb';
+import firedb from '../database';
 
 import Entry from '../common/Entry';
 import EntryListItem from './EntryListItem.jsx';

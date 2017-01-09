@@ -1,4 +1,4 @@
-import firedb from './firedb';
+import firedb from '../database';
 
 class Entry {
   constructor(date, account, amount, currency, category, location, tags) {
