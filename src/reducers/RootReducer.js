@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { EntryReducer } from './EntryReducer';
+import { EntriesReducer } from './EntriesReducer';
 
 const RootReducer = combineReducers({
-  invite: EntryReducer
+  entriesState: EntriesReducer
 });
 
 export default RootReducer;

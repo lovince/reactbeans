@@ -1,4 +1,4 @@
-import firedb from '../database';
+import db from '../database';
 
 class Entry {
   constructor(date, account, amount, currency, category, location, tags) {
@@ -25,8 +25,8 @@ class Entry {
   }
 
   static remove(key) {
-    firedb.db.ref(firedb.entriesLoc + '/' + key).remove();
-    firedb.db.ref(firedb.tagsLoc + '/' + key).remove();
+    db.firebase.ref(db.entriesLoc + '/' + key).remove();
+    db.firebase.ref(db.tagsLoc + '/' + key).remove();
   }
 
   save() {
@@ -50,19 +50,19 @@ class Entry {
     });
 
     // Get a key for a new Entry
-    var newEntryKey = firedb.db.ref(firedb.entriesLoc).push().key;
+    var newEntryKey = db.firebase.ref(db.entriesLoc).push().key;
 
     // Write the new Entry data simultaneously in the entries list and the entryTags list
     var updates = {};
-    updates[firedb.entriesLoc + '/' + newEntryKey] = entryData;
+    updates[db.entriesLoc + '/' + newEntryKey] = entryData;
     if (tagsData) {
-      updates[firedb.tagsLoc + '/' + newEntryKey] = tagsData;
+      updates[db.tagsLoc + '/' + newEntryKey] = tagsData;
     }
 
     // Keep a local copy of the Entry key
     this.key = newEntryKey;
 
-    return firedb.db.ref().update(updates);
+    return db.firebase.ref().update(updates);
   }
 
   delete() {

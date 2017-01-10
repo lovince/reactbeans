@@ -10,7 +10,7 @@ const config = {
 
 firebase.initializeApp(config);
 export default {
-  db: firebase.database(),
+  firebase: firebase.database(),
   entriesLoc: '/data/entries',
   tagsLoc: '/data/entryTags',
 }
