@@ -1,9 +1,15 @@
 import ActionTypes from '../actions/actionTypes';
+import Entry from '../common/Entry';
 
 const defaultState = {
   lastdate: new Date(),
   entries: []
 }
+
+function _sortEntries(a,b) {
+  return -Entry.compareByDate(a, b)
+}
+
 export function EntriesReducer(state = defaultState, action) {
   switch(action.type) {
     case ActionTypes.GetEntriesRequested: {
@@ -20,7 +26,7 @@ export function EntriesReducer(state = defaultState, action) {
       });
     }
     case ActionTypes.GetEntriesFulfilled: {
-      const entries = state.entries.concat(action.entries);
+      const entries = state.entries.concat(action.entries).sort(_sortEntries);
       const lastdate = action.lastdate;
       const newState = Object.assign({}, state, {
         inProgress: false,

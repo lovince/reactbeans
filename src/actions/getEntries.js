@@ -1,19 +1,17 @@
 import ActionTypes from './actionTypes';
 import db from '../database.js';
-
 import U from '../common/utils';
-import Entry from '../common/Entry';
 
 export function getEntries(lastDate) {
   return dispatch => {
     dispatch(getEntriesRequestedAction());
 
-    const end = lastDate ? lastDate : new Date();
+    const end = lastDate || new Date();
     const start = U.daysAgo(14,end);
 
     const ref = db.firebase.ref(db.entriesLoc).orderByChild('date').startAt(start.toISOString()).endAt(end.toISOString());
     return ref.once('value', snap => {
-      const entries = snap.val() ? snap.val() : {};
+      const entries = snap.val() || {};
       dispatch(getEntriesFulfilledAction(entries, start))
     })
     .catch((error) => {
@@ -35,10 +33,6 @@ function getEntriesRejectedAction() {
   }
 }
 
-function _sortEntries(a,b) {
-  return -Entry.compareByDate(a, b)
-}
-
 function getEntriesFulfilledAction(entries, lastdate) {
   const keys = Object.keys(entries);
   var a = [];
@@ -47,7 +41,6 @@ function getEntriesFulfilledAction(entries, lastdate) {
     entries[k].key = k;
     a.push(entries[k]);
   }
-  const s = a.sort(_sortEntries);
 
   return {
     type: ActionTypes.GetEntriesFulfilled,
