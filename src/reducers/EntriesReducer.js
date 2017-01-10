@@ -6,7 +6,7 @@ const defaultState = {
   entries: []
 }
 
-function _sortEntries(a,b) {
+function compareEntries(a,b) {
   return -Entry.compareByDate(a, b)
 }
 
@@ -26,13 +26,25 @@ export function EntriesReducer(state = defaultState, action) {
       });
     }
     case ActionTypes.GetEntriesFulfilled: {
-      const entries = state.entries.concat(action.entries).sort(_sortEntries);
+      const entries = state.entries.concat(action.entries).sort(compareEntries);
       const lastdate = action.lastdate;
       const newState = Object.assign({}, state, {
         inProgress: false,
         success: 'Got entries list.',
         entries: entries,
         lastdate: lastdate
+      });
+      return newState;
+    }
+    case ActionTypes.AddEntryFulfilled: {
+      var entries = state.entries || [];
+      entries.push(action.entry);
+      entries.sort(compareEntries);
+
+      const newState = Object.assign({}, state, {
+        inProgress: false,
+        success: 'Added entry.',
+        entries: entries
       });
       return newState;
     }

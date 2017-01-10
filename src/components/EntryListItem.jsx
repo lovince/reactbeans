@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../styles/styles.js';
+import S from '../styles/styles.js';
 import Entry from '../common/Entry.js';
 // import firedb from '../common/firedb';
 
@@ -23,12 +23,12 @@ class EntryListItem extends React.Component {
 
   render() {
     let props = this.props;
-    var expanded = styles.hidden;
+    var expanded = S.hidden;
     if (this.state.expanded) {
-      expanded = styles.show;
+      expanded = S.show;
     }
     return (
-      <ul id={props.id} onClick={this.onClick}>
+      <ul id={props.id} onClick={this.onClick} style={S.M(S.entry)}>
         <li>{props.date}</li>
         <li>{props.amount}</li>
         <li>{props.currency}</li>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getEntries } from '../actions/getEntries';
+import { getEntries, addEntry } from '../actions/getEntries';
 import EntryForm from '../components/EntryForm.jsx';
 import EntriesListComponent from '../components/EntriesListComponent.jsx';
 
@@ -19,7 +19,7 @@ class EntriesContainer extends React.Component {
     const entries = this.props.entries;
     return (
       <div>
-        <EntryForm />
+        <EntryForm onAdd={this.props.onAddEntry}/>
         <EntriesListComponent entries={entries} onMore={this.loadEntries}/>
       </div>
     )
@@ -40,6 +40,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onGetEntries: (lastdate) => dispatch(getEntries(lastdate)),
+    onAddEntry: (entry) => dispatch(addEntry(entry))
   };
 }
 

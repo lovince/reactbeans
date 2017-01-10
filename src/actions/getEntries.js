@@ -48,3 +48,35 @@ function getEntriesFulfilledAction(entries, lastdate) {
     lastdate: lastdate
   };
 }
+
+export function addEntry(entry) {
+  return dispatch => {
+    dispatch(addEntryRequestedAction());
+    entry.save()
+    .then(() => {
+      dispatch(addEntryFulfilledAction(entry));
+    })
+    .catch((error) => {
+      dispatch(addEntryRejectedAction());
+    });
+  }
+}
+
+function addEntryRequestedAction() {
+  return {
+    type: ActionTypes.AddEntryRequested
+  };
+}
+
+function addEntryRejectedAction() {
+  return {
+    type: ActionTypes.AddEntryRejected
+  }
+}
+
+function addEntryFulfilledAction(entry) {
+  return {
+    type: ActionTypes.AddEntryFulfilled,
+    entry
+  };
+}

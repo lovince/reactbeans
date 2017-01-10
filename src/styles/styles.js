@@ -36,4 +36,11 @@ export default {
   button: {
     fontSize:fontSize,
   },
+  entry: {
+    background: '#81D4FA',
+    transition: 'background-color 1s linear',
+    WebkitTransition: 'background-color 1s linear',
+    MozTransition: 'background-color 1s linear',
+    MSTransition: 'background-color 1s linear',
+  },
 }

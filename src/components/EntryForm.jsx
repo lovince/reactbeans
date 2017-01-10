@@ -34,7 +34,8 @@ class EntryForm extends React.Component {
   onClickSave() {
     let i = this.state.inputs;
     let e = new Entry(i.date, i.account, i.amount, i.currency, i.category, i.location, i.tags);
-    e.save();
+    // e.save();
+    this.props.onAdd(e);
     this.setState({inputs:Object.assign({},defaultInputs)});
   }
 
