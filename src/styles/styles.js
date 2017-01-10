@@ -37,10 +37,15 @@ export default {
     fontSize:fontSize,
   },
   entry: {
-    background: '#81D4FA',
+    background: 'transparent',
     transition: 'background-color 1s linear',
     WebkitTransition: 'background-color 1s linear',
     MozTransition: 'background-color 1s linear',
     MSTransition: 'background-color 1s linear',
+
+    WebkitAnimationName: 'fadeout',
+    WebkitAnimationDuration: '2s',
+    animationName: 'fadeout',
+    animationDuration: '2s',
   },
 }

@@ -28,7 +28,8 @@ class EntryListItem extends React.Component {
       expanded = S.show;
     }
     return (
-      <ul id={props.id} onClick={this.onClick} style={S.M(S.entry)}>
+      <div id={props.id} onClick={this.onClick} style={S.entry}>
+        <ul>
         <li>{props.date}</li>
         <li>{props.amount}</li>
         <li>{props.currency}</li>
@@ -38,7 +39,8 @@ class EntryListItem extends React.Component {
           <li>{props.location}</li>
           <button onClick={this.delete}>Delete</button>
         </div>
-      </ul>
+        </ul>
+      </div>
     );
   }
 }
