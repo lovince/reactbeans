@@ -32,6 +32,7 @@ class EntryListItem extends React.Component {
       case 'dining': icon='local_dining'; break;
       case 'entertainment': icon='theaters'; break;
       case 'groceries': icon='shopping_cart'; break;
+      case 'household': icon='home'; break;
       case 'pets': icon='pets'; break;
       case 'purchases': icon='shopping_basket'; break;
       case 'services': icon='room_service'; break;
