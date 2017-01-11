@@ -26,6 +26,7 @@ export default {
   form: {
     fontSize:fontSize,
     width:formWidth,
+    padding:10,
   },
   input: {
     fontSize:fontSize,
@@ -36,7 +37,6 @@ export default {
   button: {
     fontSize:fontSize,
   },
-  entrybg: {
-    background: '#90CAF9',
+  entry: {
   },
 }

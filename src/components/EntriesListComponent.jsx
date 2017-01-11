@@ -1,6 +1,8 @@
 import React from 'react';
 import db from '../database';
 
+import FlatButton from 'material-ui/FlatButton';
+
 import Entry from '../common/Entry';
 import EntryListItem from './EntryListItem.jsx';
 
@@ -28,7 +30,7 @@ class EntriesListComponent extends React.Component {
         <div className='entriesList'>
           {entriesList}
         </div>
-        <button onClick={loadMore}>Load More</button>
+        <FlatButton label="Load More" primary={true} onClick={loadMore} />
       </div>
     );
   }

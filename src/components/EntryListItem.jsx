@@ -1,5 +1,8 @@
 import React from 'react';
 import N from 'numeral';
+import Card from 'material-ui/Card';
+import CardTitle from 'material-ui/Card/CardTitle';
+import FlatButton from 'material-ui/FlatButton';
 
 import S from '../styles/styles.js';
 import Entry from '../common/Entry.js';
@@ -32,17 +35,19 @@ class EntryListItem extends React.Component {
     }
     const ds = new Date(props.date).toDateString();
     return (
-      <ul id={props.id} onClick={this.expand} style={S.entrybg}>
-        <li>{ds}</li>
-        <li>{N(props.amount).format('0,0.00')}</li>
-        <li>{props.currency}</li>
-        <div style={expanded}>
-          <li>{props.account}</li>
-          <li>{props.category}</li>
-          <li>{props.location}</li>
-          <button onClick={this.delete}>Delete</button>
-        </div>
-      </ul>
+      <Card style={S.entry}>
+        <ul id={props.id} onClick={this.expand}>
+          <li>{ds}</li>
+          <li>{N(props.amount).format('0,0.00')}</li>
+          <li>{props.currency}</li>
+          <div style={expanded}>
+            <li>{props.account}</li>
+            <li>{props.category}</li>
+            <li>{props.location}</li>
+            <FlatButton label="Delete" secondary={true} onClick={this.delete} />
+          </div>
+        </ul>
+      </Card>
     );
   }
 }
