@@ -2,7 +2,6 @@ import React from 'react';
 
 import S from '../styles/styles.js';
 import Entry from '../common/Entry.js';
-// import firedb from '../common/firedb';
 
 class EntryListItem extends React.Component {
   constructor(props) {
@@ -10,6 +9,9 @@ class EntryListItem extends React.Component {
     this.state = {expanded: false};
     this.onClick = this.onClick.bind(this);
     this.delete = this.delete.bind(this);
+  }
+
+  componentDidMount() {
   }
 
   onClick () {
@@ -28,8 +30,7 @@ class EntryListItem extends React.Component {
       expanded = S.show;
     }
     return (
-      <div id={props.id} onClick={this.onClick} style={S.entry}>
-        <ul>
+      <ul id={props.id} onClick={this.onClick} style={S.entrybg}>
         <li>{props.date}</li>
         <li>{props.amount}</li>
         <li>{props.currency}</li>
@@ -39,8 +40,7 @@ class EntryListItem extends React.Component {
           <li>{props.location}</li>
           <button onClick={this.delete}>Delete</button>
         </div>
-        </ul>
-      </div>
+      </ul>
     );
   }
 }

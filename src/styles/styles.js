@@ -36,16 +36,7 @@ export default {
   button: {
     fontSize:fontSize,
   },
-  entry: {
-    background: 'transparent',
-    transition: 'background-color 1s linear',
-    WebkitTransition: 'background-color 1s linear',
-    MozTransition: 'background-color 1s linear',
-    MSTransition: 'background-color 1s linear',
-
-    WebkitAnimationName: 'fadeout',
-    WebkitAnimationDuration: '2s',
-    animationName: 'fadeout',
-    animationDuration: '2s',
+  entrybg: {
+    background: '#90CAF9',
   },
 }
