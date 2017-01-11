@@ -105,6 +105,7 @@ class EntryForm extends React.Component {
           <MenuItem value='purchases' primaryText='Purchases'/>
           <MenuItem value='services' primaryText='Services'/>
           <MenuItem value='transportation' primaryText='Transportation'/>
+          <MenuItem value='travel' primaryText='Travel'/>
           <MenuItem value='misc' primaryText='Misc'/>
         </SelectField>
 
