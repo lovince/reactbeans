@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getEntries, addEntry, removeEntry } from '../actions/getEntries';
+import { getEntries, addEntry, removeEntry } from '../actions/EntriesActions';
 import EntryForm from '../components/EntryForm.jsx';
 import EntriesListComponent from '../components/EntriesListComponent.jsx';
 
