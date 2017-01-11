@@ -1,8 +1,12 @@
 import React from 'react';
 
-import Card from 'material-ui/Card';
-import CardTitle from 'material-ui/Card/CardTitle';
+import { Card, CardHeader, CardTitle, CardText }  from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 
 import S from '../styles/styles.js';
 import Entry from '../common/Entry.js';
@@ -13,7 +17,8 @@ const defaultInputs = {
   currency:'CAD',
   category:'dining',
   location:'',
-  date:new Date().toISOString().split('T')[0],
+  // date:new Date().toISOString().split('T')[0],
+  date:new Date(),
   tags:''
 }
 
@@ -23,16 +28,14 @@ class EntryForm extends React.Component {
     this.state = {
       inputs: Object.assign({},defaultInputs)
     };
-    this.updateInputState = this.updateInputState.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
-  }
-
-  updateInputState(e) {
-    let key = e.currentTarget.id;
-    let val = e.currentTarget.value;
-    var newInputs = this.state.inputs;
-    newInputs[key] = val;
-    this.setState({inputs:newInputs});
+    this.onClickReset = this.onClickReset.bind(this);
+    this.updateInputState = this.updateInputState.bind(this);
+    this.selectHandler = this.selectHandler.bind(this);
+    this.accountHandler = this.accountHandler.bind(this);
+    this.categoryHandler = this.categoryHandler.bind(this);
+    this.currencyHandler = this.currencyHandler.bind(this);
+    this.dateHandler = this.dateHandler.bind(this);
   }
 
   onClickSave() {
@@ -43,39 +46,84 @@ class EntryForm extends React.Component {
     this.setState({inputs:Object.assign({},defaultInputs)});
   }
 
+  onClickReset() {
+    this.setState({inputs:Object.assign({},defaultInputs)});
+  }
+
+  updateInputState(e) {
+    let key = e.currentTarget.id;
+    let val = e.currentTarget.value;
+    var newInputs = this.state.inputs;
+    newInputs[key] = val;
+    this.setState({inputs:newInputs});
+  }
+
+  accountHandler(event, index, value) {
+    this.selectHandler('account',value);
+  }
+  categoryHandler(event, index, value) {
+    this.selectHandler('category',value);
+  }
+  currencyHandler(event, index, value) {
+    this.selectHandler('currency',value);
+  }
+  selectHandler(id, value) {
+    const e = {
+      currentTarget: {
+        id: id,
+        value: value
+      }
+    }
+    this.updateInputState(e);
+  }
+
+  dateHandler(n, date) {
+    this.updateInputState({
+      currentTarget: {
+        id: 'date',
+        value: date
+      }
+    });
+  }
+
   render() {
     let i = this.state.inputs;
     return (
-      <Card style={S.form}>
-        <CardTitle>New Entry</CardTitle>
-        <select style={S.M(S.input,S.w25)} value={i.account} id='account' onChange={this.updateInputState}>
-          <option value="cash">Cash</option>
-          <option value="master">Master</option>
-          <option value="master (cn)">Master (CN)</option>
-          <option value="visa">VISA</option>
-        </select>
-        <select style={S.M(S.input,S.w50)} value={i.category} id='category' onChange={this.updateInputState}>
-          <option value="dining">Dining</option>
-          <option value="entertainment">Entertainment</option>
-          <option value="groceries">Groceries</option>
-          <option value="pets">Pets</option>
-          <option value="purchases">Purchases</option>
-          <option value="services">Services</option>
-          <option value="transportation">Transportation</option>
-          <option value="misc">Misc</option>
-        </select>
-        <input style={S.M(S.input,S.w75)} placeholder='amount' id='amount' onChange={this.updateInputState} value={i.amount} />
-        <select style={S.select} value={i.currency} id='currency' onChange={this.updateInputState}>
-          <option value="CAD">CAD</option>
-          <option value="USD">USD</option>
-          <option value="CNY">RMB</option>
-          <option value="HKD">HKD</option>
-        </select>
-        <input style={S.M(S.input,S.w90)} placeholder='location' id='location' onChange={this.updateInputState} value={i.location} />
-        <input style={S.M(S.input,S.w90)} placeholder='tags' id='tags' onChange={this.updateInputState} value={i.tags} />
-        <input style={S.M(S.input,S.w90)} type='date' placeholder='date' id='date' onChange={this.updateInputState} value={i.date} />
-        <FlatButton label="Save" primary={true} onClick={this.onClickSave}/>
-      </Card>
+      <Card style={S.form}><CardText>
+        <SelectField value={i.account} onChange={this.accountHandler} floatingLabelText="Account">
+          <MenuItem value='cash' primaryText='Cash'/>
+          <MenuItem value='master' primaryText='Master'/>
+          <MenuItem value='master (cn)' primaryText='Master (CN)'/>
+          <MenuItem value='visa' primaryText='VISA'/>
+        </SelectField>
+
+        <SelectField value={i.category} onChange={this.categoryHandler} floatingLabelText="Category">
+          <MenuItem value='dining' primaryText='Dining'/>
+          <MenuItem value='entertainment' primaryText='Entertainment'/>
+          <MenuItem value='groceries' primaryText='Groceries'/>
+          <MenuItem value='pets' primaryText='Pets'/>
+          <MenuItem value='purchases' primaryText='Purchases'/>
+          <MenuItem value='services' primaryText='Services'/>
+          <MenuItem value='transportation' primaryText='Transportation'/>
+          <MenuItem value='misc' primaryText='Misc'/>
+        </SelectField>
+
+        <TextField id='amount' hintText='amount' onChange={this.updateInputState} value={i.amount} />
+        <SelectField value={i.currency} onChange={this.currencyHandler} floatingLabelText="Currency">
+          <MenuItem value='CAD' primaryText='CAD'/>
+          <MenuItem value='USD' primaryText='USD'/>
+          <MenuItem value='CNY' primaryText='RMB'/>
+          <MenuItem value='HKD' primaryText='HKD'/>
+        </SelectField>
+
+        <TextField id='location' hintText='@location' onChange={this.updateInputState} value={i.location} />
+        <TextField id='tags' hintText='#tags' id='tags' onChange={this.updateInputState} value={i.tags} />
+
+        <DatePicker value={i.date} autoOk={true} onChange={this.dateHandler} />
+
+        <FlatButton label="Cancel" onClick={this.onClickReset}/>
+        <RaisedButton label="Add" primary={true} onClick={this.onClickSave}/>
+      </CardText></Card>
     );
   }
 }

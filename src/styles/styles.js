@@ -1,5 +1,5 @@
 const fontSize = 16;
-const formWidth = 360;
+const formWidth = 300;
 
 export default {
   M: function() {
@@ -24,18 +24,7 @@ export default {
     width:'25%',
   },
   form: {
-    fontSize:fontSize,
     width:formWidth,
-    padding:10,
-  },
-  input: {
-    fontSize:fontSize,
-  },
-  select: {
-    fontSize:fontSize,
-  },
-  button: {
-    fontSize:fontSize,
   },
   entry: {
   },
