@@ -26,8 +26,10 @@ class EntryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      expanded: false,
       inputs: Object.assign({},defaultInputs)
     };
+    this.handleExpandChange = this.handleExpandChange.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickReset = this.onClickReset.bind(this);
     this.updateInputState = this.updateInputState.bind(this);
@@ -38,12 +40,16 @@ class EntryForm extends React.Component {
     this.dateHandler = this.dateHandler.bind(this);
   }
 
+  handleExpandChange(expanded) {
+    this.setState({expanded: expanded});
+  }
+
   onClickSave() {
     let i = this.state.inputs;
     let e = new Entry(i.date, i.account, i.amount, i.currency, i.category, i.location, i.tags);
     // e.save();
     this.props.onAdd(e);
-    this.setState({inputs:Object.assign({},defaultInputs)});
+    this.setState({expanded:false, inputs:Object.assign({},defaultInputs)});
   }
 
   onClickReset() {
@@ -89,8 +95,11 @@ class EntryForm extends React.Component {
   render() {
     let i = this.state.inputs;
     return (
-      <Card expandable={true}>
-        <CardText actAsExpander={true}>
+      <Card expandable={true} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+        <CardHeader
+          title='New Entry'
+          actAsExpander={true} />
+        <CardText expandable={true}>
           <SelectField value={i.account} onChange={this.accountHandler} floatingLabelText="Account">
             <MenuItem value='cash' primaryText='Cash'/>
             <MenuItem value='master' primaryText='Master'/>
@@ -109,9 +118,7 @@ class EntryForm extends React.Component {
             <MenuItem value='travel' primaryText='Travel'/>
             <MenuItem value='misc' primaryText='Misc'/>
           </SelectField>
-        </CardText>
 
-        <CardText expandable={true}>
           <TextField id='amount' hintText='amount' onChange={this.updateInputState} value={i.amount} />
           <SelectField value={i.currency} onChange={this.currencyHandler} floatingLabelText="Currency">
             <MenuItem value='CAD' primaryText='CAD'/>
