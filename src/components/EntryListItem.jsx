@@ -8,14 +8,14 @@ class EntryListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {expanded: false};
-    this.onClick = this.onClick.bind(this);
+    this.expand = this.expand.bind(this);
     this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
   }
 
-  onClick () {
+  expand () {
     let newExpandedState = !this.state.expanded;
     this.setState({expanded: newExpandedState});
   }
@@ -32,7 +32,7 @@ class EntryListItem extends React.Component {
     }
     const ds = new Date(props.date).toDateString();
     return (
-      <ul id={props.id} onClick={this.onClick} style={S.entrybg}>
+      <ul id={props.id} onClick={this.expand} style={S.entrybg}>
         <li>{ds}</li>
         <li>{N(props.amount).format('0,0.00')}</li>
         <li>{props.currency}</li>
