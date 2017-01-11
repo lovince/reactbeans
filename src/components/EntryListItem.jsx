@@ -1,4 +1,5 @@
 import React from 'react';
+import N from 'numeral';
 
 import S from '../styles/styles.js';
 import Entry from '../common/Entry.js';
@@ -29,11 +30,11 @@ class EntryListItem extends React.Component {
     if (this.state.expanded) {
       expanded = S.show;
     }
-    const ds = new Date(props.date).toString();
+    const ds = new Date(props.date).toDateString();
     return (
       <ul id={props.id} onClick={this.onClick} style={S.entrybg}>
         <li>{ds}</li>
-        <li>{props.amount}</li>
+        <li>{N(props.amount).format('0,0.00')}</li>
         <li>{props.currency}</li>
         <div style={expanded}>
           <li>{props.account}</li>
