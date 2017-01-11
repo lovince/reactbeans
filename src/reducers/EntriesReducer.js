@@ -36,15 +36,61 @@ export function EntriesReducer(state = defaultState, action) {
       });
       return newState;
     }
+    case ActionTypes.AddEntryRequested: {
+      return Object.assign({}, state, {
+        inProgress: true,
+        error: '',
+        success: ''
+      });
+    }
+    case ActionTypes.AddEntryRejected: {
+      return Object.assign({}, state, {
+        inProgress: false,
+        error: 'Error in adding entry.',
+      });
+    }
     case ActionTypes.AddEntryFulfilled: {
-      // var entries = state.entries || [];
-      // entries.push(action.entry);
-      // entries.sort(compareEntries);
       const entries = state.entries.concat([action.entry]).sort(compareEntries);
-
       const newState = Object.assign({}, state, {
         inProgress: false,
         success: 'Added entry.',
+        entries: entries
+      });
+      return newState;
+    }
+    case ActionTypes.RemoveEntryRequested: {
+      return Object.assign({}, state, {
+        inProgress: true,
+        error: '',
+        success: ''
+      });
+    }
+    case ActionTypes.RemoveEntryRejected: {
+      return Object.assign({}, state, {
+        inProgress: false,
+        error: 'Error in removing entry.',
+      });
+    }
+    case ActionTypes.RemoveEntryFulfilled: {
+      var i = 0;
+      for (i=0; i<state.entries.length; i++) {
+        if (state.entries[i].key == action.key) {
+          break
+        }
+      }
+      console.log("i="+i);
+      var a1 = []
+      var a2 = [];
+      if (i-1 > 0) {
+        a1 = state.entries.slice(0,i);
+      }
+      if (i+1 < state.entries.length) {
+        a2 = state.entries.slice(i+1,state.entries.length);
+      }
+      const entries = a1.concat(a2);
+      const newState = Object.assign({}, state, {
+        inProgress: false,
+        success: 'Removed entry.',
         entries: entries
       });
       return newState;

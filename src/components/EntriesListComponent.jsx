@@ -18,7 +18,7 @@ class EntriesListComponent extends React.Component {
 
     let entriesList = entries.map(e => {
       return (
-        <EntryListItem id={e.key} {...e} />
+        <EntryListItem id={e.key} {...e} onRemove={this.props.onRemove}/>
       )
     });
 

@@ -20,7 +20,7 @@ class EntryListItem extends React.Component {
   }
 
   delete() {
-    Entry.remove(this.props.id);
+    this.props.onRemove(this.props.id);
   }
 
   render() {

@@ -2,6 +2,8 @@ import ActionTypes from './actionTypes';
 import db from '../database.js';
 import U from '../common/utils';
 
+import Entry from '../common/Entry';
+
 export function getEntries(lastDate) {
   return dispatch => {
     dispatch(getEntriesRequestedAction());
@@ -78,5 +80,37 @@ function addEntryFulfilledAction(entry) {
   return {
     type: ActionTypes.AddEntryFulfilled,
     entry
+  };
+}
+
+export function removeEntry(key) {
+  return dispatch => {
+    dispatch(removeEntryRequestedAction());
+    Entry.remove(key)
+    .then(() => {
+      dispatch(removeEntryFulfilledAction(key));
+    })
+    .catch((error) => {
+      dispatch(removeEntryRejectedAction());
+    });
+  }
+}
+
+function removeEntryRequestedAction() {
+  return {
+    type: ActionTypes.RemoveEntryRequested
+  };
+}
+
+function removeEntryRejectedAction() {
+  return {
+    type: ActionTypes.RemoveEntryRejected
+  }
+}
+
+function removeEntryFulfilledAction(key) {
+  return {
+    type: ActionTypes.RemoveEntryFulfilled,
+    key: key
   };
 }

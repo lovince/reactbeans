@@ -25,8 +25,10 @@ class Entry {
   }
 
   static remove(key) {
-    db.firebase.ref(db.entriesLoc + '/' + key).remove();
-    db.firebase.ref(db.tagsLoc + '/' + key).remove();
+    return db.firebase.ref(db.entriesLoc + '/' + key).remove()
+    .then(() => {
+      return db.firebase.ref(db.tagsLoc + '/' + key).remove()
+    })
   }
 
   save() {

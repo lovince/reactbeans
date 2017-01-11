@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getEntries, addEntry } from '../actions/getEntries';
+import { getEntries, addEntry, removeEntry } from '../actions/getEntries';
 import EntryForm from '../components/EntryForm.jsx';
 import EntriesListComponent from '../components/EntriesListComponent.jsx';
 
@@ -20,7 +20,7 @@ class EntriesContainer extends React.Component {
     return (
       <div>
         <EntryForm onAdd={this.props.onAddEntry}/>
-        <EntriesListComponent entries={entries} onMore={this.loadEntries}/>
+        <EntriesListComponent entries={entries} onMore={this.loadEntries} onRemove={this.props.onRemoveEntry} />
       </div>
     )
   }
@@ -40,7 +40,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onGetEntries: (lastdate) => dispatch(getEntries(lastdate)),
-    onAddEntry: (entry) => dispatch(addEntry(entry))
+    onAddEntry: (entry) => dispatch(addEntry(entry)),
+    onRemoveEntry: (entry) => dispatch(removeEntry(entry))
   };
 }
 
