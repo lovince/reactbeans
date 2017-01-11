@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardHeader, CardTitle, CardText }  from 'material-ui/Card';
+import { Card, CardHeader, CardTitle, CardText, CardActions }  from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
@@ -89,42 +89,47 @@ class EntryForm extends React.Component {
   render() {
     let i = this.state.inputs;
     return (
-      <Card style={S.form}><CardText>
-        <SelectField value={i.account} onChange={this.accountHandler} floatingLabelText="Account">
-          <MenuItem value='cash' primaryText='Cash'/>
-          <MenuItem value='master' primaryText='Master'/>
-          <MenuItem value='master (cn)' primaryText='Master (CN)'/>
-          <MenuItem value='visa' primaryText='VISA'/>
-        </SelectField>
+      <Card expandable={true}>
+        <CardText actAsExpander={true}>
+          <SelectField value={i.account} onChange={this.accountHandler} floatingLabelText="Account">
+            <MenuItem value='cash' primaryText='Cash'/>
+            <MenuItem value='master' primaryText='Master'/>
+            <MenuItem value='master (cn)' primaryText='Master (CN)'/>
+            <MenuItem value='visa' primaryText='VISA'/>
+          </SelectField>
 
-        <SelectField value={i.category} onChange={this.categoryHandler} floatingLabelText="Category">
-          <MenuItem value='dining' primaryText='Dining'/>
-          <MenuItem value='entertainment' primaryText='Entertainment'/>
-          <MenuItem value='groceries' primaryText='Groceries'/>
-          <MenuItem value='pets' primaryText='Pets'/>
-          <MenuItem value='purchases' primaryText='Purchases'/>
-          <MenuItem value='services' primaryText='Services'/>
-          <MenuItem value='transportation' primaryText='Transportation'/>
-          <MenuItem value='travel' primaryText='Travel'/>
-          <MenuItem value='misc' primaryText='Misc'/>
-        </SelectField>
+          <SelectField value={i.category} onChange={this.categoryHandler} floatingLabelText="Category">
+            <MenuItem value='dining' primaryText='Dining'/>
+            <MenuItem value='entertainment' primaryText='Entertainment'/>
+            <MenuItem value='groceries' primaryText='Groceries'/>
+            <MenuItem value='pets' primaryText='Pets'/>
+            <MenuItem value='purchases' primaryText='Purchases'/>
+            <MenuItem value='services' primaryText='Services'/>
+            <MenuItem value='transportation' primaryText='Transportation'/>
+            <MenuItem value='travel' primaryText='Travel'/>
+            <MenuItem value='misc' primaryText='Misc'/>
+          </SelectField>
+        </CardText>
 
-        <TextField id='amount' hintText='amount' onChange={this.updateInputState} value={i.amount} />
-        <SelectField value={i.currency} onChange={this.currencyHandler} floatingLabelText="Currency">
-          <MenuItem value='CAD' primaryText='CAD'/>
-          <MenuItem value='USD' primaryText='USD'/>
-          <MenuItem value='CNY' primaryText='RMB'/>
-          <MenuItem value='HKD' primaryText='HKD'/>
-        </SelectField>
+        <CardText expandable={true}>
+          <TextField id='amount' hintText='amount' onChange={this.updateInputState} value={i.amount} />
+          <SelectField value={i.currency} onChange={this.currencyHandler} floatingLabelText="Currency">
+            <MenuItem value='CAD' primaryText='CAD'/>
+            <MenuItem value='USD' primaryText='USD'/>
+            <MenuItem value='CNY' primaryText='RMB'/>
+            <MenuItem value='HKD' primaryText='HKD'/>
+          </SelectField>
 
-        <TextField id='location' hintText='@location' onChange={this.updateInputState} value={i.location} />
-        <TextField id='tags' hintText='#tags' id='tags' onChange={this.updateInputState} value={i.tags} />
+          <TextField id='location' hintText='@location' onChange={this.updateInputState} value={i.location} />
+          <TextField id='tags' hintText='#tags' id='tags' onChange={this.updateInputState} value={i.tags} />
 
-        <DatePicker value={i.date} autoOk={true} onChange={this.dateHandler} />
-
-        <FlatButton label="Cancel" onClick={this.onClickReset}/>
-        <RaisedButton label="Add" primary={true} onClick={this.onClickSave}/>
-      </CardText></Card>
+          <DatePicker value={i.date} autoOk={true} onChange={this.dateHandler} />
+        </CardText>
+        <CardActions expandable={true}>
+          <FlatButton label="Cancel" onClick={this.onClickReset}/>
+          <RaisedButton label="Add" primary={true} onClick={this.onClickSave}/>
+        </CardActions>
+      </Card>
     );
   }
 }
