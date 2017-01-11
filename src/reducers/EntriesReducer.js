@@ -37,9 +37,10 @@ export function EntriesReducer(state = defaultState, action) {
       return newState;
     }
     case ActionTypes.AddEntryFulfilled: {
-      var entries = state.entries || [];
-      entries.push(action.entry);
-      entries.sort(compareEntries);
+      // var entries = state.entries || [];
+      // entries.push(action.entry);
+      // entries.sort(compareEntries);
+      const entries = state.entries.concat([action.entry]).sort(compareEntries);
 
       const newState = Object.assign({}, state, {
         inProgress: false,

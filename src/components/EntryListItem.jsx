@@ -29,9 +29,10 @@ class EntryListItem extends React.Component {
     if (this.state.expanded) {
       expanded = S.show;
     }
+    const ds = new Date(props.date).toString();
     return (
       <ul id={props.id} onClick={this.onClick} style={S.entrybg}>
-        <li>{props.date}</li>
+        <li>{ds}</li>
         <li>{props.amount}</li>
         <li>{props.currency}</li>
         <div style={expanded}>
